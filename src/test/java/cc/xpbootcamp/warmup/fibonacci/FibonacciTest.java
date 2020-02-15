@@ -20,4 +20,8 @@ public class FibonacciTest {
     public void shouldGet8WhenFibonacciCalcAndGivenIndex6(){
         Assert.assertEquals(8, Fibonacci.Calc(6));
     }
+    @Test
+    public void shouldGet12586269025WhenFibonacciCalcAndGivenIndex50(){
+        Assert.assertEquals(12586269025L, Fibonacci.Calc(50));
+    }
 }
