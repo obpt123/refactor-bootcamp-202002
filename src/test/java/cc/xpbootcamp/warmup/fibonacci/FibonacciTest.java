@@ -12,4 +12,8 @@ public class FibonacciTest {
     public void shouldGet1WhenFibonacciCalcAndGivenIndex2(){
         Assert.assertEquals(1, Fibonacci.Calc(2));
     }
+    @Test
+    public void shouldGet2WhenFibonacciCalcAndGivenIndex3(){
+        Assert.assertEquals(2, Fibonacci.Calc(3));
+    }
 }
