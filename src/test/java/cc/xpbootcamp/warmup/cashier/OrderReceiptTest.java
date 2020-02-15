@@ -1,16 +1,16 @@
 package cc.xpbootcamp.warmup.cashier;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 
-class OrderReceiptTest {
+public class OrderReceiptTest {
     @Test
-    void shouldPrintCustomerInformationOnOrder() {
+    public void shouldPrintCustomerInformationOnOrder() {
         Order order = new Order("Mr X", "Chicago, 60601", new ArrayList<LineItem>());
         OrderReceipt receipt = new OrderReceipt(order);
 
