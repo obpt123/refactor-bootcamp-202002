@@ -24,4 +24,12 @@ public class FibonacciTest {
     public void shouldGet12586269025WhenFibonacciCalcAndGivenIndex50(){
         Assert.assertEquals(12586269025L, Fibonacci.Calc(50));
     }
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowExceptionWhenFibonacciCalcAndGivenIndex0(){
+       Fibonacci.Calc(0);
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowExceptionWhenFibonacciCalcAndGivenIndexLessThan0(){
+       Fibonacci.Calc(-1);
+    }
 }
