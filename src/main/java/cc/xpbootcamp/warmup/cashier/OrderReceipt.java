@@ -8,6 +8,7 @@ package cc.xpbootcamp.warmup.cashier;
  *
  */
 public class OrderReceipt {
+    public static final double TaxSales = .1d;
     private Order order;
 
     public OrderReceipt(Order order) {
@@ -36,7 +37,7 @@ public class OrderReceipt {
 
     private void wirteFooterToOutput(StringBuilder output) {
         double totalAmountNoTx = order.getLineItems().stream().mapToDouble(LineItem::totalAmount).sum();
-        double totSalesTx = totalAmountNoTx * .10;
+        double totSalesTx = totalAmountNoTx * TaxSales;
         appendLine(output, "Sales Tax\t%.1f", totSalesTx);
         appendLine(output, "Total Amount\t%.1f", totalAmountNoTx + totSalesTx);
     }
