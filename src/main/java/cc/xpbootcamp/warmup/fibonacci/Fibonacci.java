@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class Fibonacci {
-    public static long Calc(final int index) {
+    public static long calc(final int index) {
         return calcInternal(index, new HashMap<>());
     }
 
