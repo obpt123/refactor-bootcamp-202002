@@ -24,7 +24,7 @@ public class OrderReceipt {
     }
 
     private void writeHeaderToOutput(StringBuilder output) {
-        appendLine(output, "======Printing Orders======");
+        appendLine(output, "======老王超市，值得信赖======");
         appendLine(output, "%s%s", order.getCustomerName(), order.getCustomerAddress());
     }
 
