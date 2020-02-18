@@ -2,7 +2,6 @@ package cc.xpbootcamp.warmup.cashier;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -36,9 +35,9 @@ public class OrderReceiptTest {
 
         String output = receipt.printReceipt();
 
-        assertThat(output, containsString("milk\t10.0\t2\t20.0\n"));
-        assertThat(output, containsString("biscuits\t5.0\t5\t25.0\n"));
-        assertThat(output, containsString("chocolate\t20.0\t1\t20.0\n"));
+        assertThat(output, containsString("milk, 10.00×2, 20.00\n"));
+        assertThat(output, containsString("biscuits, 5.00×5, 25.00\n"));
+        assertThat(output, containsString("chocolate, 20.00×1, 20.00\n"));
     }
 
     @Test

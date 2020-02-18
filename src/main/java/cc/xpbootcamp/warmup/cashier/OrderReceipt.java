@@ -38,7 +38,7 @@ public class OrderReceipt {
 
     private void writeListItemToOutput(StringBuilder output) {
         order.getLineItems().forEach(lineItem -> {
-            appendLine(output, "%s\t%.1f\t%d\t%.1f", lineItem.getDescription(), lineItem.getPrice(),
+            appendLine(output, "%s, %.2f×%d, %.2f", lineItem.getDescription(), lineItem.getPrice(),
                     lineItem.getQuantity(), lineItem.totalAmount());
         });
     }
