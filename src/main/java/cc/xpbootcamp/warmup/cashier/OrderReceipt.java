@@ -1,6 +1,5 @@
 package cc.xpbootcamp.warmup.cashier;
 
-import java.time.DayOfWeek;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
@@ -12,8 +11,6 @@ import java.util.Locale;
  *
  */
 public class OrderReceipt {
-    public static final double TaxSales = .1d;
-    public static final double DiscountPercent = .98d;
     private Order order;
 
     public OrderReceipt(Order order) {
@@ -31,7 +28,6 @@ public class OrderReceipt {
     private void writeHeaderToOutput(StringBuilder output) {
         appendLine(output, "======老王超市，值得信赖======");
         appendLine(output, "");
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年M月d日, E", Locale.CHINA);
         appendLine(output, order.getDate().format(formatter));
         appendLine(output, "");
@@ -46,20 +42,11 @@ public class OrderReceipt {
 
     private void wirteFooterToOutput(StringBuilder output) {
         appendLine(output, "-----------------------");
-        double totalAmountNoTx = order.getLineItems().stream().mapToDouble(LineItem::totalAmount).sum();
-        double totSalesTx = totalAmountNoTx * TaxSales;
-        double totAmountWithTx = totalAmountNoTx + totSalesTx;
-        appendLine(output, "税额: %.2f", totSalesTx);
-        if (hasDiscount()) {
-            double totDiscount = totAmountWithTx * (1 - DiscountPercent);
-            totAmountWithTx = totAmountWithTx - totDiscount;
-            appendLine(output, "折扣: %.2f", totDiscount);
+        appendLine(output, "税额: %.2f", order.totalTax());
+        if (order.hasDiscount()) {
+            appendLine(output, "折扣: %.2f", order.totalDiscount());
         }
-        appendLine(output, "总价: %.2f", totAmountWithTx);
-    }
-
-    private boolean hasDiscount() {
-        return DayOfWeek.WEDNESDAY.equals(order.getDate().getDayOfWeek());
+        appendLine(output, "总价: %.2f", order.totalAmount());
     }
 
     private void appendLine(StringBuilder output, String text, Object... args) {

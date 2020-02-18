@@ -66,7 +66,7 @@ public class OrderReceiptTest {
     }
 
     @Test
-    public void shouldHas98PercentDiscountWhenPrintOrderGivenOrderDateIsNotPreferentialDay() {
+    public void shouldNoDiscountWhenPrintOrderGivenOrderDateIsNotPreferentialDay() {
         List<LineItem> lineItems = new ArrayList<LineItem>() {
             {
                 add(new LineItem("巧克力", 21.5, 2));
