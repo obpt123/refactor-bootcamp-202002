@@ -8,19 +8,9 @@ import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.assertEquals;
 
 public class OrderReceiptTest {
-
-    @Test
-    public void shouldPrintCustomerInformationOnOrder() {
-        Order order = new Order("Mr X", "Chicago, 60601", LocalDate.now(), new ArrayList<LineItem>());
-        OrderReceipt receipt = new OrderReceipt(order);
-
-        String output = receipt.printReceipt();
-
-        assertThat(output, containsString("Mr X"));
-        assertThat(output, containsString("Chicago, 60601"));
-    }
 
     @Test
     public void shouldPrintLineItemsInformation() {
@@ -64,7 +54,7 @@ public class OrderReceiptTest {
         OrderReceipt receipt = new OrderReceipt(order);
 
         String output = receipt.printReceipt();
-        assertThat(output, containsString("=====老王超市，值得信赖======"));
+        assertThat(output, containsString("======老王超市，值得信赖======"));
     }
 
     @Test
@@ -74,6 +64,29 @@ public class OrderReceiptTest {
 
         String output = receipt.printReceipt();
         assertThat(output, containsString("2020年2月17日, 星期一"));
+    }
+
+    @Test
+    public void shouldPrintExpectInfomationOnOrder() {
+        List<LineItem> lineItems = new ArrayList<LineItem>() {
+            {
+                add(new LineItem("巧克力", 21.5, 2));
+                add(new LineItem("小白菜", 10.0, 1));
+            }
+        };
+        OrderReceipt receipt = new OrderReceipt(new Order(null, null, LocalDate.of(2020, 2, 17), lineItems));
+
+        String output = receipt.printReceipt();
+        String expected = "======老王超市，值得信赖======\n" +
+                          "\n" +
+                          "2020年2月17日, 星期一\n" +
+                          "\n" +
+                          "巧克力, 21.50×2, 43.00\n" +
+                          "小白菜, 10.00×1, 10.00\n" +
+                          "-----------------------\n" +
+                          "税额: 5.30\n" +
+                          "总价: 58.30\n";
+        assertEquals(expected, output);
     }
 
 }

@@ -33,7 +33,6 @@ public class OrderReceipt {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年M月d日, E", Locale.CHINA);
         appendLine(output,order.getDate().format(formatter));
         appendLine(output, "");
-        appendLine(output, "%s%s", order.getCustomerName(), order.getCustomerAddress());
     }
 
     private void writeListItemToOutput(StringBuilder output) {
@@ -44,6 +43,7 @@ public class OrderReceipt {
     }
 
     private void wirteFooterToOutput(StringBuilder output) {
+        appendLine(output, "-----------------------");
         double totalAmountNoTx = order.getLineItems().stream().mapToDouble(LineItem::totalAmount).sum();
         double totSalesTx = totalAmountNoTx * TaxSales;
         appendLine(output, "税额: %.2f", totSalesTx);
