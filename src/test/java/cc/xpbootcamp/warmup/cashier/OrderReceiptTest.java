@@ -54,8 +54,8 @@ public class OrderReceiptTest {
 
         String output = receipt.printReceipt();
 
-        assertThat(output, containsString("Sales Tax\t6.5"));
-        assertThat(output, containsString("Total Amount\t71.5"));
+        assertThat(output, containsString("税额: 6.50"));
+        assertThat(output, containsString("总价: 71.50"));
     }
 
     @Test

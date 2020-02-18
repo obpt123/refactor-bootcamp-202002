@@ -46,8 +46,8 @@ public class OrderReceipt {
     private void wirteFooterToOutput(StringBuilder output) {
         double totalAmountNoTx = order.getLineItems().stream().mapToDouble(LineItem::totalAmount).sum();
         double totSalesTx = totalAmountNoTx * TaxSales;
-        appendLine(output, "Sales Tax\t%.1f", totSalesTx);
-        appendLine(output, "Total Amount\t%.1f", totalAmountNoTx + totSalesTx);
+        appendLine(output, "税额: %.2f", totSalesTx);
+        appendLine(output, "总价: %.2f", totalAmountNoTx + totSalesTx);
     }
 
     private void appendLine(StringBuilder output, String text, Object... args) {
