@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 public class OrderReceiptTest {
 
     @Test
-    public void shouldPrintLineItemsInformation() {
+    public void shouldHasLineItemsInformationWhenPrintOrder() {
         List<LineItem> lineItems = new ArrayList<LineItem>() {
             {
                 add(new LineItem("milk", 10.0, 2));
@@ -31,7 +31,7 @@ public class OrderReceiptTest {
     }
 
     @Test
-    public void shouldPrintSalesAndTaxInformation() {
+    public void shouldHasSalesAndTaxInformationWhenPrintOrder() {
         List<LineItem> lineItems = new ArrayList<LineItem>() {
             {
                 add(new LineItem("milk", 10.0, 2));
@@ -48,7 +48,7 @@ public class OrderReceiptTest {
     }
 
     @Test
-    public void shouldPrintAdInformationOnOrder() {
+    public void shouldHasAdInformationWhenPrintOrder() {
         Order order = new Order("Mr X", "Chicago, 60601", LocalDate.of(2020, 2, 17), new ArrayList<LineItem>());
         OrderReceipt receipt = new OrderReceipt(order);
 
@@ -57,7 +57,7 @@ public class OrderReceiptTest {
     }
 
     @Test
-    public void shouldPrintDateInfomationOnOrder() {
+    public void shouldHasDateInfomationWhenPrintOrder() {
         Order order = new Order("Mr X", "Chicago, 60601", LocalDate.of(2020, 2, 17), new ArrayList<>());
         OrderReceipt receipt = new OrderReceipt(order);
 
@@ -66,7 +66,7 @@ public class OrderReceiptTest {
     }
 
     @Test
-    public void shouldPrintExpectInfomationOnOrder() {
+    public void shouldHas98PercentDiscountWhenPrintOrderGivenOrderDateIsNotPreferentialDay() {
         List<LineItem> lineItems = new ArrayList<LineItem>() {
             {
                 add(new LineItem("巧克力", 21.5, 2));
@@ -88,7 +88,7 @@ public class OrderReceiptTest {
     }
 
     @Test
-    public void shouldHas98PercentDiscountWhenPrintOrderAndGivenOrderDateIsWednesday(){
+    public void shouldHas98PercentDiscountWhenPrintOrderGivenOrderDateIsWednesday(){
         List<LineItem> lineItems = new ArrayList<LineItem>() {
             {
                 add(new LineItem("巧克力", 21.5, 2));
@@ -103,5 +103,26 @@ public class OrderReceiptTest {
         assertThat(output, containsString("折扣: 1.17"));
         assertThat(output, containsString("总价: 57.13"));
     }
+    @Test
+    public void shouldGetExpectInfomationWhenPrintOrderGivenOrderDateIsWednesday() {
+        List<LineItem> lineItems = new ArrayList<LineItem>() {
+            {
+                add(new LineItem("巧克力", 21.5, 2));
+                add(new LineItem("小白菜", 10.0, 1));
+            }
+        };
+        OrderReceipt receipt = new OrderReceipt(new Order(null, null, LocalDate.of(2020, 2, 19), lineItems));
 
+        String expected = "======老王超市，值得信赖======\n" +
+                          "\n" +
+                          "2020年2月19日, 星期三\n" +
+                          "\n" +
+                          "巧克力, 21.50×2, 43.00\n" +
+                          "小白菜, 10.00×1, 10.00\n" +
+                          "-----------------------\n" +
+                          "税额: 5.30\n" +
+                          "折扣: 1.17\n" +
+                          "总价: 57.13\n";
+        assertEquals(expected, receipt.printReceipt());
+    }
 }
