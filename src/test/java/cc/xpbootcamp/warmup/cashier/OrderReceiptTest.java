@@ -1,6 +1,8 @@
 package cc.xpbootcamp.warmup.cashier;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -12,7 +14,7 @@ public class OrderReceiptTest {
 
     @Test
     public void shouldPrintCustomerInformationOnOrder() {
-        Order order = new Order("Mr X", "Chicago, 60601", new ArrayList<LineItem>());
+        Order order = new Order("Mr X", "Chicago, 60601", LocalDate.now(), new ArrayList<LineItem>());
         OrderReceipt receipt = new OrderReceipt(order);
 
         String output = receipt.printReceipt();
@@ -29,7 +31,7 @@ public class OrderReceiptTest {
             add(new LineItem("biscuits", 5.0, 5));
             add(new LineItem("chocolate", 20.0, 1));
         }};
-        OrderReceipt receipt = new OrderReceipt(new Order(null, null, lineItems));
+        OrderReceipt receipt = new OrderReceipt(new Order(null, null, LocalDate.now(), lineItems));
 
         String output = receipt.printReceipt();
 
@@ -41,11 +43,20 @@ public class OrderReceiptTest {
     }
 
     @Test
-    public void shouldPrintLogoInformationOnOrder(){
-        Order order = new Order("Mr X", "Chicago, 60601", new ArrayList<LineItem>());
+    public void shouldPrintAdInformationOnOrder(){
+        Order order = new Order("Mr X", "Chicago, 60601", LocalDate.now(), new ArrayList<LineItem>());
         OrderReceipt receipt = new OrderReceipt(order);
 
         String output = receipt.printReceipt();
         assertThat(output, containsString("=====老王超市，值得信赖======"));
+    }
+
+    @Test
+    public void shouldPrintDateInfomationOnOrder(){
+        Order order = new Order("Mr X", "Chicago, 60601", LocalDate.of(2020, 2, 17), new ArrayList<>());
+        OrderReceipt receipt = new OrderReceipt(order);
+        
+        String output = receipt.printReceipt();
+        assertThat(output, containsString("2020年2月17日, 星期一"));
     }
 }

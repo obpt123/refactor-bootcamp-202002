@@ -1,5 +1,8 @@
 package cc.xpbootcamp.warmup.cashier;
 
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 /**
  * OrderReceipt prints the details of order including customer name, address,
  * description, quantity, price and amount. It also calculates the sales tax @
@@ -25,6 +28,11 @@ public class OrderReceipt {
 
     private void writeHeaderToOutput(StringBuilder output) {
         appendLine(output, "======老王超市，值得信赖======");
+        appendLine(output, "");
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年M月d日, E", Locale.CHINA);
+        appendLine(output,order.getDate().format(formatter));
+        appendLine(output, "");
         appendLine(output, "%s%s", order.getCustomerName(), order.getCustomerAddress());
     }
 
