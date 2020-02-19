@@ -37,7 +37,7 @@ public class Order {
     }
 
     public double originalTotalAmount() {
-        return this.lineItemList.stream().mapToDouble(LineItem::totalAmount).sum();
+        return lineItemList.stream().mapToDouble(LineItem::totalAmount).sum();
     }
 
     public double originalTotalAmountWithTax() {
