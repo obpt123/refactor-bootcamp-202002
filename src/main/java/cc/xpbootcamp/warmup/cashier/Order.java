@@ -7,16 +7,25 @@ import java.util.List;
 public class Order {
     public static final double TaxSales = .1d;
     public static final double DiscountPercent = .98d;
-    
+
     private String cName;
     private String addr;
     private LocalDate date;
     private List<LineItem> lineItemList;
 
-    public Order(String cName, String addr, LocalDate date, List<LineItem> lineItemList) {
+    public Order(String cName, String addr, LocalDate orderDate, List<LineItem> lineItemList) {
+        if (orderDate == null) {
+            throw new IllegalArgumentException("Order date should not be null.");
+        }
+        if (lineItemList == null) {
+            throw new IllegalArgumentException("LineItems should not be null.");
+        }
+        if (lineItemList.contains(null)) {
+            throw new IllegalArgumentException("LineItems should not contains null.");
+        }
         this.cName = cName;
         this.addr = addr;
-        this.date = date;
+        this.date = orderDate;
         this.lineItemList = lineItemList;
     }
 

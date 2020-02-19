@@ -20,7 +20,7 @@ public class OrderTest {
     };
     static final LocalDate AWednesday = LocalDate.parse("2020-02-19");
     static final LocalDate NotAWednesday = LocalDate.parse("2020-02-17");
-    
+
     @Test
     public void shouldGetExpectedValueWhenGetOriginalTotalAmountGivenSomeLineItems() {
         Order order = createOrderWithDefaultLineItems(LocalDate.now());
@@ -73,6 +73,23 @@ public class OrderTest {
     public void shouldGetExpectedValueWhenGetTotalAmountGivenOrderDateIsWednesday() {
         Order order = createOrderWithDefaultLineItems(AWednesday);
         assertEquals(70.07, order.totalAmount(), delta);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowExceptionWhenOrderDateIsNull() {
+        createOrderWithDefaultLineItems(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowExceptionWhenLineItemsIsNull() {
+        new Order(null, null, LocalDate.now(), null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowExceptionWhenLineItemsContainsNull() {
+        List<LineItem> lineItems = new ArrayList<>();
+        lineItems.add(null);
+        new Order(null, null, LocalDate.now(), lineItems);
     }
 
     private Order createOrderWithDefaultLineItems(LocalDate orderDate) {
