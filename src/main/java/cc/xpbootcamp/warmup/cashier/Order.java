@@ -8,12 +8,12 @@ public class Order {
     public static final double TaxSales = .1d;
     public static final double DiscountPercent = .98d;
 
-    private String cName;
-    private String addr;
-    private LocalDate date;
+    private String customerName;
+    private String customerAddress;
+    private LocalDate orderDate;
     private List<LineItem> lineItemList;
 
-    public Order(String cName, String addr, LocalDate orderDate, List<LineItem> lineItemList) {
+    public Order(String customerName, String customerAddress, LocalDate orderDate, List<LineItem> lineItemList) {
         if (orderDate == null) {
             throw new IllegalArgumentException("Order date should not be null.");
         }
@@ -23,22 +23,22 @@ public class Order {
         if (lineItemList.contains(null)) {
             throw new IllegalArgumentException("LineItems should not contains null.");
         }
-        this.cName = cName;
-        this.addr = addr;
-        this.date = orderDate;
+        this.customerName = customerName;
+        this.customerAddress = customerAddress;
+        this.orderDate = orderDate;
         this.lineItemList = lineItemList;
     }
 
     public String getCustomerName() {
-        return cName;
+        return customerName;
     }
 
     public String getCustomerAddress() {
-        return addr;
+        return customerAddress;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getOrderDate() {
+        return orderDate;
     }
 
     public List<LineItem> getLineItems() {
@@ -66,6 +66,6 @@ public class Order {
     }
 
     public boolean hasDiscount() {
-        return DayOfWeek.WEDNESDAY.equals(date.getDayOfWeek());
+        return DayOfWeek.WEDNESDAY.equals(orderDate.getDayOfWeek());
     }
 }
