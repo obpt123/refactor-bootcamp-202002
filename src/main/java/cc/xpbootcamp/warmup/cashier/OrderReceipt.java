@@ -21,7 +21,7 @@ public class OrderReceipt {
         StringBuilder output = new StringBuilder();
         writeHeaderToOutput(output);
         writeListItemToOutput(output);
-        wirteFooterToOutput(output);
+        writeFooterToOutput(output);
         return output.toString();
     }
 
@@ -40,7 +40,7 @@ public class OrderReceipt {
         });
     }
 
-    private void wirteFooterToOutput(StringBuilder output) {
+    private void writeFooterToOutput(StringBuilder output) {
         appendLine(output, "-----------------------");
         appendLine(output, "税额: %.2f", order.totalTax());
         if (order.hasDiscount()) {
