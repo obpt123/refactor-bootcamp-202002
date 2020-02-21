@@ -28,7 +28,7 @@ public class OrderReceipt {
     private void writeHeaderToOutput(StringBuilder output) {
         appendLine(output, "======老王超市，值得信赖======");
         appendLine(output, "");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年M月d日, E", Locale.CHINA);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年M月d日, EEEE", Locale.CHINA);
         appendLine(output, order.getOrderDate().format(formatter));
         appendLine(output, "");
     }
