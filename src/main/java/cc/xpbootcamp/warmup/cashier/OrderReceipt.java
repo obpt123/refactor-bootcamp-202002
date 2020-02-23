@@ -2,6 +2,7 @@ package cc.xpbootcamp.warmup.cashier;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 /**
  * OrderReceipt prints the details of order including customer name, address,
@@ -19,37 +20,41 @@ public class OrderReceipt {
 
     public String printReceipt() {
         StringBuilder output = new StringBuilder();
-        writeHeaderToOutput(output);
-        writeListItemToOutput(output);
-        writeFooterToOutput(output);
+        output.append(generateHeader());
+        output.append(generateListItems());
+        output.append(generateFooter());
         return output.toString();
     }
 
-    private void writeHeaderToOutput(StringBuilder output) {
-        appendLine(output, "======老王超市，值得信赖======");
-        appendLine(output, "");
+    private String generateHeader() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年M月d日, EEEE", Locale.CHINA);
-        appendLine(output, order.getOrderDate().format(formatter));
-        appendLine(output, "");
+        return formatLine("======老王超市，值得信赖======") 
+                + formatLine("")
+                + formatLine(order.getOrderDate().format(formatter)) 
+                + formatLine("");
     }
 
-    private void writeListItemToOutput(StringBuilder output) {
-        order.getLineItems().forEach(lineItem -> {
-            appendLine(output, "%s, %.2f×%d, %.2f", lineItem.getDescription(), lineItem.getPrice(),
-                    lineItem.getQuantity(), lineItem.totalAmount());
-        });
+    private String generateListItems() {
+        return order.getLineItems().stream().map(this::generateListItem).collect(Collectors.joining());
     }
 
-    private void writeFooterToOutput(StringBuilder output) {
-        appendLine(output, "-----------------------");
-        appendLine(output, "税额: %.2f", order.totalTax());
-        if (order.hasDiscount()) {
-            appendLine(output, "折扣: %.2f", order.totalDiscount());
-        }
-        appendLine(output, "总价: %.2f", order.totalAmount());
+    private String generateListItem(LineItem lineItem) {
+        return formatLine("%s, %.2f×%d, %.2f", lineItem.getDescription(), lineItem.getPrice(), lineItem.getQuantity(),
+                lineItem.totalAmount());
     }
 
-    private void appendLine(StringBuilder output, String text, Object... args) {
-        output.append(String.format(text, args) + '\n');
+    private String generateFooter() {
+        return formatLine("-----------------------") 
+                + formatLine("税额: %.2f", order.totalTax())
+                + formatLineIf(order.hasDiscount(), "折扣: %.2f", order.totalDiscount())
+                + formatLine("总价: %.2f", order.totalAmount());
+    }
+
+    private String formatLine(String text, Object... args) {
+        return String.format(text, args) + '\n';
+    }
+
+    private String formatLineIf(Boolean condition, String text, Object... args) {
+        return condition ? formatLine(text, args) : "";
     }
 }
