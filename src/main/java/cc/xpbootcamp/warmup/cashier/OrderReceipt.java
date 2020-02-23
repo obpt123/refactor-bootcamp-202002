@@ -19,11 +19,9 @@ public class OrderReceipt {
     }
 
     public String printReceipt() {
-        StringBuilder output = new StringBuilder();
-        output.append(generateHeader());
-        output.append(generateListItems());
-        output.append(generateFooter());
-        return output.toString();
+        return generateHeader()
+                + generateListItems()
+                + generateFooter();
     }
 
     private String generateHeader() {
